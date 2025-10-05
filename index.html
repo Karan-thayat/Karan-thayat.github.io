@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karan Thayat | Portfolio</title>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    body {
+      font-family: "Poppins", sans-serif;
+      line-height: 1.7;
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: all 0.4s ease;
+    }
+
+    /* THEME VARIABLES */
+    :root {
+      --bg-color: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+      --text-color: #333;
+      --card-bg: #fff;
+      --section-bg1: linear-gradient(180deg, #ffffff 0%, #f5f7fa 100%);
+      --section-bg2: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
+      --accent: #00adb5;
+      --accent-hover: #008b8f;
+      --highlight: #ffd369;
+      --navbar-bg: rgba(34, 34, 34, 0.9);
+      --footer-bg: #222;
+    }
+    body.dark {
+      --bg-color: linear-gradient(135deg, #1e1e1e 0%, #121212 100%);
+      --text-color: #f5f5f5;
+      --card-bg: #1f1f1f;
+      --section-bg1: linear-gradient(180deg, #1a1a1a 0%, #101010 100%);
+      --section-bg2: linear-gradient(180deg, #111 0%, #181818 100%);
+      --accent: #00e0ff;
+      --accent-hover: #00b8d9;
+      --highlight: #ffd369;
+      --navbar-bg: rgba(20, 20, 20, 0.9);
+      --footer-bg: #0f0f0f;
+    }
+
+    /* Navbar */
+    header {
+      background: var(--navbar-bg);
+      color: white;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+    }
+    .logo {
+      font-size: 1.3rem;
+      font-weight: bold;
+      letter-spacing: 0.5px;
+    }
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--highlight); }
+    .menu-toggle {
+      display: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .theme-toggle {
+      background: none;
+      border: none;
+      color: var(--highlight);
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .theme-toggle:hover {
+      transform: scale(1.2);
+    }
+
+    /* Hero */
+    .hero {
+      background: linear-gradient(135deg, var(--accent) 0%, #393e46 100%);
+      color: white;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      background-attachment: fixed;
+    }
+    .hero-content h1 { font-size: 2.8rem; }
+    .highlight { color: var(--highlight); }
+    .btn {
+      display: inline-block;
+      margin-top: 1.5rem;
+      padding: 0.8rem 1.8rem;
+      background: var(--highlight);
+      color: #222;
+      font-weight: bold;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #ffcc33; transform: scale(1.05); }
+
+    /* Sections */
+    .section { padding: 5rem 2rem; transition: background 0.4s; }
+    .section-title {
+      text-align: center;
+      margin-bottom: 2.5rem;
+      font-size: 2rem;
+      color: var(--text-color);
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 80px;
+      height: 3px;
+      background: var(--accent);
+      margin: 0.5rem auto 0;
+      border-radius: 10px;
+    }
+
+    /* About */
+    #about { background: var(--section-bg1); }
+    .about-content {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .profile-img {
+      width: 250px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+    }
+    .about-text {
+      max-width: 600px;
+      background: var(--card-bg);
+      padding: 1.5rem 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    /* Education */
+    .education {
+      margin-top: 2.5rem;
+      text-align: center;
+    }
+    .edu-item {
+      margin: 1rem 0;
+      font-size: 1.1rem;
+    }
+    .edu-item span {
+      font-weight: bold;
+      color: var(--accent);
+    }
+
+    /* Skills */
+    #skills { background: var(--section-bg2); }
+    .skills-container {
+      max-width: 800px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .skill-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 25px;
+      cursor: default;
+      font-size: 1rem;
+      font-weight: 500;
+      transition: transform 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .skill-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+    }
+
+    /* Projects */
+    #projects { background: var(--section-bg1); }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      padding: 1.8rem;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+    .project-card h3 {
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+    .project-card p { color: var(--text-color); }
+    .project-card a {
+      display: inline-block;
+      margin-top: 0.8rem;
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .project-card a:hover { color: var(--accent-hover); }
+
+    /* Contact */
+    #contact { background: var(--section-bg2); }
+    .contact-form {
+      max-width: 500px;
+      margin: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background: var(--card-bg);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    }
+    .contact-form input, .contact-form textarea {
+      padding: 0.8rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: var(--bg-color);
+      color: var(--text-color);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--footer-bg);
+      color: white;
+      text-align: center;
+      padding: 1.8rem 1rem;
+    }
+    .social-links a {
+      color: var(--accent);
+      margin: 0 0.6rem;
+      text-decoration: none;
+    }
+    .social-links a:hover { color: var(--highlight); }
+    .email {
+      display: block;
+      margin-top: 0.5rem;
+      color: #ccc;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        background: #333;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        width: 200px;
+        text-align: right;
+        padding: 1rem;
+      }
+      .nav-links.active { display: flex; }
+      .menu-toggle { display: block; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">Karan Thayat</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><button class="theme-toggle" id="theme-toggle" title="Toggle Theme">🌙</button></li>
+      </ul>
+      <div class="menu-toggle" id="menu-toggle">☰</div>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Hi, I'm <span class="highlight">Karan Thayat</span></h1>
+      <h2><span id="typing"></span></h2>
+      <a href="#contact" class="btn">Hire Me</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="about section">
+    <h2 class="section-title">About Me</h2>
+    <div class="about-content">
+      <img src="image.jpg" alt="Profile" class="profile-img">
+      <div class="about-text">
+        <p>
+          I'm currently pursuing my <strong>M.Tech in Computer Science and Information Security (CSIS)</strong> at <strong>IIIT Hyderabad</strong>.
+          My interests include <strong>Operating Systems</strong>, <strong>Web Development</strong>, and <strong>Security</strong>.
+        </p>
+        <p>
+          I enjoy learning new technologies and applying them to solve real-world problems. I'm passionate about developing scalable, secure, and user-friendly applications that make an impact.
+        </p>
+      </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="education">
+      <h3 class="section-subtitle">Education</h3>
+      <div class="edu-item">
+        <span>M.Tech, CSIS</span> - IIIT Hyderabad (2025–2027)
+      </div>
+      <div class="edu-item">
+        <span>B.Tech, CSE</span> - G.B.U.A&T Pantnagar (2020–2024)
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="skills section">
+    <h2 class="section-title">Skills</h2>
+    <div class="skills-container">
+      <button class="skill-btn">HTML</button>
+      <button class="skill-btn">CSS</button>
+      <button class="skill-btn">JavaScript</button>
+      <button class="skill-btn">C++</button>
+      <button class="skill-btn">MERN</button>
+      <button class="skill-btn">React</button>
+      <button class="skill-btn">SQL</button>
+      <button class="skill-btn">Python</button>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="projects section">
+    <h2 class="section-title">Projects</h2>
+    <div class="project-grid">
+      <div class="project-card">
+        <h3>POSIX Shell</h3>
+        <p>Implemented a POSIX-compliant shell with job control, I/O redirection, and piping features using C.</p>
+        <a href="https://github.com/Karan-thayat/POSIX-Shell-" target="_blank">View on GitHub</a>
+      </div>
+      <div class="project-card">
+        <h3>uTorrent Clone</h3>
+        <p>A peer-to-peer file sharing system inspired by uTorrent, built using sockets and multithreading in C++.</p>
+      </div>
+      <div class="project-card">
+        <h3>BitTorrent</h3>
+        <p>A BitTorrent client implementation with peer communication, chunk sharing, and tracker integration.</p>
+        <a href="https://github.com/Karan-thayat/Bit-torrent" target="_blank">View on GitHub</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="contact section">
+    <h2 class="section-title">Contact Me</h2>
+    <form class="contact-form" onsubmit="event.preventDefault(); alert('Message Sent!');">
+      <input type="text" placeholder="Your Name" required>
+      <input type="email" placeholder="Your Email" required>
+      <textarea rows="5" placeholder="Your Message" required></textarea>
+      <button type="submit" class="btn">Send Message</button>
+    </form>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Karan Thayat | All Rights Reserved</p>
+    <div class="social-links">
+      <a href="https://www.linkedin.com/in/karan-thayat-b86485379/" target="_blank">LinkedIn</a>
+      <a href="https://github.com/Karan-thayat" target="_blank">GitHub</a>
+      <a href="mailto:karanthayat.30@gmail.com" class="email">karanthayat.30@gmail.com</a>
+    </div>
+  </footer>
+
+  <script>
+    // Navbar toggle
+    const menuToggle = document.getElementById('menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    menuToggle.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Typing Effect
+    const text = ["Web Developer", "System Programmer", "Tech Enthusiast"];
+    let index = 0, charIndex = 0;
+    const typingElement = document.getElementById("typing");
+    function type() {
+      if (charIndex < text[index].length) {
+        typingElement.textContent += text[index].charAt(charIndex);
+        charIndex++;
+        setTimeout(type, 100);
+      } else setTimeout(erase, 1500);
+    }
+    function erase() {
+      if (charIndex > 0) {
+        typingElement.textContent = text[index].substring(0, charIndex - 1);
+        charIndex--;
+        setTimeout(erase, 50);
+      } else {
+        index = (index + 1) % text.length;
+        setTimeout(type, 300);
+      }
+    }
+    document.addEventListener("DOMContentLoaded", () => setTimeout(type, 500));
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme === 'dark') {
+      body.classList.add('dark');
+      themeToggle.textContent = '☀️';
+    }
+    themeToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      const isDark = body.classList.contains('dark');
+      themeToggle.textContent = isDark ? '☀️' : '🌙';
+      localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    });
+  </script>
+</body>
+</html>
